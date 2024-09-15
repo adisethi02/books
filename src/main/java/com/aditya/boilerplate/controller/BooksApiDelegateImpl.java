@@ -3,6 +3,7 @@ package com.aditya.boilerplate.controller;
 import com.aditya.boilerplate.service.BookService;
 import com.aditya.openapi.boilerplate.api.BooksApi;
 import com.aditya.openapi.boilerplate.model.BookDto;
+import com.aditya.openapi.boilerplate.model.BuyerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,5 +40,16 @@ public class BooksApiDelegateImpl implements BooksApi {
     @Override
     public ResponseEntity<BookDto> updateBook(String id, BookDto book) {
         return ResponseEntity.ok(bookService.updateBook(id, book));
+    }
+
+    @Override
+    public ResponseEntity<BookDto> buyBook(String id, BuyerDto buyer) {
+        bookService.buyBook(id, buyer);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<List<BuyerDto>> getBuyers(String id) {
+        return ResponseEntity.ok(bookService.getBuyers(id));
     }
 }

@@ -105,6 +105,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BookDto'
+  /books/{id}/buyers:
+    post:
+      tags:
+        - books
+      summary: Buy a book
+      operationId: buyBook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: String
+          description: ID of the book to buy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyerDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDto'
+    get:
+      tags:
+        - books
+      summary: Get all buyers of a book
+      operationId: getBuyers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: String
+          description: ID of the book to get buyers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuyerDto'
 components:
   schemas:
     BookDto:
@@ -126,4 +173,16 @@ components:
         language:
           type: string
         pages:
-          type: number
+          type: integer
+          format: int32
+        category:
+          type: string
+    BuyerDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
